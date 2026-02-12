@@ -39,12 +39,6 @@ const styles = StyleSheet.create({
   container: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
   title: { fontSize: 32, fontWeight: "700" },
   subtitle: { fontSize: 16, marginTop: 8, opacity: 0.7 },
-  button: {
-    marginTop: 24,
-    paddingVertical: 12,
-    paddingHorizontal: 22,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
+  button: { marginTop: 24, paddingVertical: 12, paddingHorizontal: 22, borderRadius: 12, borderWidth: 1 },
   buttonText: { fontSize: 18, fontWeight: "600" },
 });
