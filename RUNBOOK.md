@@ -1,80 +1,61 @@
 # FocusZen Runbook (Agent Workflow)
 
-This repo uses an architecture-first, offline-first approach. Keep changes small, verify often, and ship daily.
+This repo is architecture-first and offline-first. Keep scope tight, ship daily, and avoid spaghetti.
 
-## Branching rules (hard)
-Never commit directly to main.
-Work on branches:
-- daily/<YYYY-MM-DD>-<topic>
-- feature/<feature-name>
-- sprint/<N>-<name>
+## Hard rules
+- Never commit directly to main.
+- Work only on branches:
+  - daily/<YYYY-MM-DD>-<topic>
+  - feature/<feature-name>
+  - sprint/<N>-<name>
+- Every PR must include “How to test”.
+- No secrets committed (.env, keys, certs).
 
-## Output format (mandatory)
-All agent outputs must use:
+## Mandatory output format
+All agent outputs must be:
 - Decision
 - Plan
 - Implementation
 - Verification
 
-## Roles and responsibilities
-- Lead: scope control, architecture discipline, delegation, PR summary
-- Architect: module boundaries, layer rules, file placement
-- PM: user story, acceptance criteria, out-of-scope, risks
-- UX: screen flow, copy (TR), edge cases, accessibility
-- Mobile: implement in small commits, respect boundaries
-- QA: manual checklist, regression risks
-
-## Architecture guardrails (hard)
+## Architecture guardrails
 - `app/` is routing only (Expo Router).
-- All product code lives in `src/`.
+- All product code is in `src/`.
 - Feature modules: `src/modules/<feature>/{presentation,domain,data}`.
 - Layering:
   - presentation -> domain -> data
   - domain must not import from presentation/data/platform
   - data may import domain
-  - platform adapters live in `src/platform`
+- Expo API adapters live in `src/platform`.
 
 ## Daily rhythm (1 push/day)
-A "daily push" must include meaningful progress:
-- screen stub + routing
-- module skeleton + interfaces
-- persistence/audio baseline change
-- bugfix + verification notes
+A daily push must be meaningful (feature increment, module skeleton, baseline wiring, bugfix + verification).
 
 ## Standard workflows
 
-### A) Plan a feature
-Use Codex and request:
-- user story + acceptance criteria
-- architecture impact + file plan
-- tasks (small, ordered)
-- test plan
+### Plan
+- Confirm scope + constraints + acceptance criteria
+- Produce file plan + tasks + test plan
 
-### B) Implement a feature
-1) Create branch: feature/<name> (or daily/<date>-<topic>)
-2) Implement in small commits
-3) Run quick checks (lint/typecheck/tests if available)
+### Implement
+1) Create branch (daily/feature/sprint)
+2) Small commits
+3) Run quick checks
 4) Push to GitHub
-5) Prepare PR text (must include "How to test")
+5) PR text includes “How to test”
 
-### C) Verify
-- Provide a manual test checklist
-- Note regression risks
-- Confirm commands run: `npx expo start` + basic smoke
+### Verify
+- Manual checklist
+- Regression risks
+- Smoke test: `npx expo start -c`
 
-## Commands (copy/paste)
-
-Check branch:
-- git branch --show-current
-
-Start Expo (clean):
-- npx expo start -c
-
-Daily branch:
-- DATE=$(date +%F)
-- git checkout -b "daily/$DATE-<topic>"
-
-Commit + push:
-- git add .
-- git commit -m "daily: <what changed>"
-- git push -u origin HEAD
+## Copy/paste commands
+- Current branch: `git branch --show-current`
+- Clean start: `npx expo start -c`
+- Daily branch:
+  - DATE=$(date +%F)
+  - git checkout -b "daily/$DATE-<topic>"
+- Commit + push:
+  - git add .
+  - git commit -m "daily: <what changed>"
+  - git push -u origin HEAD
