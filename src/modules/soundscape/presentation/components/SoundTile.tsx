@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   tileActive: {
-    borderWidth: 2,
+    borderWidth: 3,
+    borderColor: "#007AFF",
     opacity: 0.95,
   },
   title: {
